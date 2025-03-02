@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        canvas {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Healthcare Analytics Dashboard</h1>
+    <p>Welcome to the dashboard! Below is a sample chart.</p>
+
+    <canvas id="myChart"></canvas>
+
+    <script>
+        var hospitals = JSON.parse('{{ hospitals | tojson | safe }}');
+        var patients = JSON.parse('{{ patients | tojson | safe }}');
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: hospitals,
+                datasets: [{
+                    label: 'Number of Patients',
+                    data: patients,
+                    backgroundColor: ['red', 'blue', 'green', 'orange', 'purple']
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
